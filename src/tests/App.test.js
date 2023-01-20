@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from '../helper/renderWithRouter';
@@ -46,5 +46,19 @@ describe('Teste o componente <App.js />', () => {
 
     const { pathname } = history.location;
     expect(pathname).toBe('/favorites');
+  });
+
+  it('Teste se a aplicação é redirecionada para a página Not Found', () => {
+    const { history } = renderWithRouter(<App />);
+
+    act(() => {
+      history.push('/germancano/');
+    });
+
+    const notFoundTitle = screen.getByRole(
+      'heading',
+      { level: 2, name: 'Page requested not found' },
+    );
+    expect(notFoundTitle).toBeInTheDocument();
   });
 });
