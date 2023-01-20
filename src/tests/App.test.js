@@ -27,4 +27,24 @@ describe('Teste o componente <App.js />', () => {
     const { pathname } = history.location;
     expect(pathname).toBe('/');
   });
+
+  it('Teste se a aplicação é redirecionada para a página de About', () => {
+    const { history } = renderWithRouter(<App />);
+
+    const linkAbout = screen.getByText(/About/i);
+    userEvent.click(linkAbout);
+
+    const { pathname } = history.location;
+    expect(pathname).toBe('/about');
+  });
+
+  it('Teste se a aplicação é redirecionada para a página de Pokémon Favoritados', () => {
+    const { history } = renderWithRouter(<App />);
+
+    const linkPokemon = screen.getByText(/Favorite Pokémon/i);
+    userEvent.click(linkPokemon);
+
+    const { pathname } = history.location;
+    expect(pathname).toBe('/favorites');
+  });
 });
